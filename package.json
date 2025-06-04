@@ -1,0 +1,33 @@
+{
+  "name": "pointblankid-stats-checker",
+  "version": "1.0.0",
+  "description": "Point Blank Account Stats Checker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/im-hanzou/PointBlankID-stats-checker.git"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "cors": "^2.8.5"
+  },
+  "author": "im-hanzou",
+  "license": "MIT",
+  "keywords": [
+    "point-blank",
+    "checker",
+    "nodejs",
+    "express",
+    "account-checker",
+    "stats-checker",
+    "game-stats",
+    "web-application",
+    "proxy-server",
+    "api-checker"
+  ]
+}
