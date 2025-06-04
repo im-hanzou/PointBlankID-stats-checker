@@ -1,5 +1,5 @@
 # PointBlankID Stats Checker
-Point Blank Account Stats Checker - A web application to check Point Blank game account statistics and information.
+Point Blank Account Stats Checker (Indonesian Account) - A web application to check Point Blank game account statistics and information.
 ## Tools and components required
 1. [PointBlank.id](https://pointblank.id/) Account Credentials
 4. VPS or RDP (OPTIONAL), Get free $200 credit [DigitalOcean](https://m.do.co/c/3f132e0f7e13) for 60 days here: [Register](https://m.do.co/c/3f132e0f7e13)
