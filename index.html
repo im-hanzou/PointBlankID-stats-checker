@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://logos-download.com/wp-content/uploads/2018/09/Point_Blank_Logo.png" type="image/png">
+    <title>Point Blank ID Account Stats Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a0e0e 25%, #2d0a0a 50%, #1a0e0e 75%, #0c0c0c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(165, 42, 42, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(128, 0, 0, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(139, 69, 19, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B0000 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(139, 69, 19, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 25%, #A0522D 50%, #8B0000 75%, #DC143C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(139, 69, 19, 0.5);
+            letter-spacing: -1px;
+        }
+        
+        .header p {
+            color: #d4a574;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-card {
+            background: rgba(20, 10, 10, 0.9);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(139, 69, 19, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.5), transparent);
+        }
+        
+        .input-group {
+            margin-bottom: 30px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: #d4a574;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 18px 24px;
+            background: rgba(10, 5, 5, 0.8);
+            border: 2px solid rgba(139, 69, 19, 0.4);
+            border-radius: 15px;
+            color: #f3f4f6;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 
+                0 0 0 4px rgba(139, 69, 19, 0.2),
+                0 8px 25px rgba(139, 69, 19, 0.15);
+            transform: translateY(-2px);
+            background: rgba(15, 8, 8, 0.9);
+        }
+        
+        .input-group input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 25%, #8B0000 50%, #DC143C 75%, #B22222 100%);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 10px 25px rgba(139, 69, 19, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 35px rgba(139, 69, 19, 0.5),
+                0 5px 15px rgba(220, 20, 60, 0.3);
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 25%, #DC143C 50%, #8B0000 75%, #B22222 100%);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .player-card {
+            background: rgba(20, 10, 10, 0.95);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(139, 69, 19, 0.4);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(139, 69, 19, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.8), transparent);
+        }
+        
+        .player-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(139, 69, 19, 0.3);
+            position: relative;
+        }
+        
+        .player-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B4513, transparent);
+        }
+        
+        .player-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B0000 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            box-shadow: 
+                0 15px 35px rgba(139, 69, 19, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .player-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .player-avatar img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: brightness(1.3) contrast(1.1);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .player-info h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #f3f4f6;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .player-info .rank {
+            color: #d4a574;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+        
+        .stat-card {
+            background: rgba(10, 5, 5, 0.7);
+            border: 2px solid rgba(139, 69, 19, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.6), transparent);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(139, 69, 19, 0.6);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                0 5px 15px rgba(139, 69, 19, 0.3);
+            background: rgba(15, 8, 8, 0.8);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #DC143C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(139, 69, 19, 0.3);
+        }
+        
+        .stat-label {
+            color: #d4a574;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .error-card {
+            background: rgba(50, 10, 10, 0.9);
+            border: 2px solid rgba(220, 20, 60, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            color: #ffb3b3;
+            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.2);
+        }
+        
+        .error-card h3 {
+            margin-bottom: 15px;
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #8B4513, #DC143C);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            50% { transform: translateY(50vh) rotate(180deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 20px;
+            border-top: 2px solid rgba(139, 69, 19, 0.3);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B4513, transparent);
+        }
+
+        .footer p {
+            color: #d4a574;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer .heart {
+            color: #DC143C;
+            font-size: 1.2rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .footer a {
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer a:hover {
+            color: #DC143C;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+
+        .footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #8B4513, #DC143C);
+            transition: width 0.3s ease;
+        }
+
+        .footer a:hover::after {
+            width: 100%;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .form-card,
+            .player-card {
+                padding: 25px;
+            }
+            
+            .player-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .player-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 20px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer p {
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://logos-download.com/wp-content/uploads/2018/09/Point_Blank_Logo.png" alt="Point Blank Logo">
+                </div>
+            </div>
+            <h1>POINT BLANK ID</h1>
+            <p>Account and Stats Checker</p>
+        </div>
+        
+        <div class="form-card">
+            <div class="input-group">
+                <label for="userId">👤 USER ID</label>
+                <input type="text" id="userId" value="" placeholder="Enter your username">
+            </div>
+            
+            <div class="input-group">
+                <label for="userPasswd">🔐 PASSWORD</label>
+                <input type="password" id="userPasswd" value="" placeholder="Enter your password">
+            </div>
+            
+            <button id="checkBtn" class="btn" onclick="checkPlayerInfo()">
+                🚀 CHECK ACCOUNT
+            </button>
+        </div>
+        
+        <div id="result"></div>
+
+        <div class="footer">
+            <p>
+                Made by
+                <a href="https://github.com/im-hanzou" target="_blank" rel="noopener noreferrer">
+                    IM-Hanzou
+                </a> x 
+                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">
+                    Claude
+                </a>
+                with <span class="heart">❤️</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        const ENCRYPT_KEY = "zib0ottepez0ppaczib0ottepez0ppac";
+        const ENCRYPT_IV = "fedcba9876543210";
+        const COUNTRY_CODE = "ID";
+        
+        const RANKS = [
+            { "id": 0, "rank": "Private" },
+            { "id": 1, "rank": "Private Second Class" },
+            { "id": 2, "rank": "Private First Class" },
+            { "id": 3, "rank": "Corporal" },
+            { "id": 4, "rank": "Sergeant" },
+            { "id": 5, "rank": "Staff Sergeant Grade 1" },
+            { "id": 6, "rank": "Staff Sergeant Grade 2" },
+            { "id": 7, "rank": "Staff Sergeant Grade 3" },
+            { "id": 8, "rank": "Sergeant 1st Class Grade 1" },
+            { "id": 9, "rank": "Sergeant 1st Class Grade 2" },
+            { "id": 10, "rank": "Sergeant 1st Class Grade 3" },
+            { "id": 11, "rank": "Sergeant 1st Class Grade 4" },
+            { "id": 12, "rank": "Master Sergeant Grade 1" },
+            { "id": 13, "rank": "Master Sergeant Grade 2" },
+            { "id": 14, "rank": "Master Sergeant Grade 3" },
+            { "id": 15, "rank": "Master Sergeant Grade 4" },
+            { "id": 16, "rank": "Master Sergeant Grade 5" },
+            { "id": 17, "rank": "2nd Lieutenant Grade 1" },
+            { "id": 18, "rank": "2nd Lieutenant Grade 2" },
+            { "id": 19, "rank": "2nd Lieutenant Grade 3" },
+            { "id": 20, "rank": "2nd Lieutenant Grade 4" },
+            { "id": 21, "rank": "1st Lieutenant Grade 1" },
+            { "id": 22, "rank": "1st Lieutenant Grade 2" },
+            { "id": 23, "rank": "1st Lieutenant Grade 3" },
+            { "id": 24, "rank": "1st Lieutenant Grade 4" },
+            { "id": 25, "rank": "1st Lieutenant Grade 5" },
+            { "id": 26, "rank": "Captain Grade 1" },
+            { "id": 27, "rank": "Captain Grade 2" },
+            { "id": 28, "rank": "Captain Grade 3" },
+            { "id": 29, "rank": "Captain Grade 4" },
+            { "id": 30, "rank": "Captain Grade 5" },
+            { "id": 31, "rank": "Major Grade 1" },
+            { "id": 32, "rank": "Major Grade 2" },
+            { "id": 33, "rank": "Major Grade 3" },
+            { "id": 34, "rank": "Major Grade 4" },
+            { "id": 35, "rank": "Major Grade 5" },
+            { "id": 36, "rank": "Lieutenant Colonel Grade 1" },
+            { "id": 37, "rank": "Lieutenant Colonel Grade 2" },
+            { "id": 38, "rank": "Lieutenant Colonel Grade 3" },
+            { "id": 39, "rank": "Lieutenant Colonel Grade 4" },
+            { "id": 40, "rank": "Lieutenant Colonel Grade 5" },
+            { "id": 41, "rank": "Colonel Grade 1" },
+            { "id": 42, "rank": "Colonel Grade 2" },
+            { "id": 43, "rank": "Colonel Grade 3" },
+            { "id": 44, "rank": "Colonel Grade 4" },
+            { "id": 45, "rank": "Colonel Grade 5" },
+            { "id": 46, "rank": "Brigadier" },
+            { "id": 47, "rank": "Major General" },
+            { "id": 48, "rank": "Lieutenant General" },
+            { "id": 49, "rank": "General" },
+            { "id": 50, "rank": "Commander" },
+            { "id": 51, "rank": "Hero" },
+            { "id": 52, "rank": "Traini" },
+            { "id": 53, "rank": "GM" },
+            { "id": 54, "rank": "MOD" }
+        ];
+        
+        function padString(str, blockSize) {
+            const padding = blockSize - (str.length % blockSize);
+            return str + '\0'.repeat(padding);
+        }
+        
+        function encryptParameter(plaintext) {
+            try {
+                const paddedText = padString(plaintext, 16);
+                const key = CryptoJS.enc.Utf8.parse(ENCRYPT_KEY);
+                const iv = CryptoJS.enc.Utf8.parse(ENCRYPT_IV);
+                
+                const encrypted = CryptoJS.AES.encrypt(paddedText, key, {
+                    iv: iv,
+                    mode: CryptoJS.mode.CBC,
+                    padding: CryptoJS.pad.NoPadding
+                });
+                
+                return encodeURIComponent(encrypted.toString());
+            } catch (error) {
+                console.error('Encryption error:', error);
+                return null;
+            }
+        }
+        
+        function getRankName(rankId) {
+            const rank = RANKS.find(r => r.id === rankId);
+            return rank ? rank.rank : `Rank ${rankId}`;
+        }
+        
+        function formatNumber(num) {
+            return num.toLocaleString();
+        }
+       
+        async function performLogin(userId, userPasswd) {
+            const encryptedCountry = encryptParameter(COUNTRY_CODE);
+            const encryptedUserId = encryptParameter(userId);
+            const encryptedPasswd = encryptParameter(userPasswd);
+            
+            if (!encryptedCountry || !encryptedUserId || !encryptedPasswd) {
+                throw new Error('Encryption failed');
+            }
+            const baseUrl = window.location.origin;
+            const url = `${baseUrl}/api/account/accountlogin?countryCode=${encryptedCountry}&userId=${encryptedUserId}&userPasswd=${encryptedPasswd}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'User-Agent': 'okhttp/3.12.1',
+                    'Connection': 'keep-alive',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: ''
+            });
+            
+            const responseText = await response.text();
+            return JSON.parse(responseText);
+        }
+        
+        async function getUserDetails(token, uid) {
+            const encryptedToken = encryptParameter(token);
+            const encryptedUid = encryptParameter(uid.toString());
+            
+            if (!encryptedToken || !encryptedUid) {
+                throw new Error('Encryption failed for user details');
+            }
+            const baseUrl = window.location.origin;
+            const url = `${baseUrl}/api/users/soldierinfo?token=${encryptedToken}&uid=${encryptedUid}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'User-Agent': 'okhttp/3.12.1',
+                    'Connection': 'keep-alive',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: ''
+            });
+            
+            const responseText = await response.text();
+            return JSON.parse(responseText);
+        }
+        
+        async function checkPlayerInfo() {
+            const checkBtn = document.getElementById('checkBtn');
+            const userId = document.getElementById('userId').value;
+            const userPasswd = document.getElementById('userPasswd').value;
+            
+            if (!userId || !userPasswd) {
+                alert('Please enter your UserID and Password!');
+                return;
+            }
+            
+            checkBtn.disabled = true;
+            checkBtn.innerHTML = '<span class="loading"></span>LOADING ACCOUNT STATS...';
+            
+            try {
+                console.log('🔐 Logging in...');
+                const loginResult = await performLogin(userId, userPasswd);
+                
+                if (loginResult.code !== 0 || !loginResult.data || !loginResult.data.token) {
+                    throw new Error(loginResult.message || 'Login failed');
+                }
+                
+                console.log('👤 Getting user details...');
+                const userResult = await getUserDetails(loginResult.data.token, loginResult.data.uid);
+                
+                if (userResult.code !== 0 || !userResult.data) {
+                    throw new Error(userResult.message || 'Failed to get user details');
+                }
+                
+                displayPlayerInfo(userResult.data);
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                displayError(error.message);
+            } finally {
+                checkBtn.disabled = false;
+                checkBtn.innerHTML = '🚀 CHECK ACCOUNT';
+            }
+        }
+        
+        function displayPlayerInfo(data) {
+            const kdRatio = data.kdRatio ? data.kdRatio.toFixed(2) + "%" : "0.00%";
+            const headshotRatio = data.headshotRatio ? data.headshotRatio.toFixed(1) + "%" : "0.0%";
+            const winRatio = data.winRatio ? data.winRatio.toFixed(1) + "%" : "0.0%";
+            const rankName = getRankName(data.i32Rank);
+            
+            const playerHtml = `
+                <div class="player-card">
+                    <div class="player-header">
+                        <div class="player-avatar">
+                            <img src="https://logos-download.com/wp-content/uploads/2018/09/Point_Blank_Logo.png" alt="Point Blank">
+                        </div>
+                        <div class="player-info">
+                            <h2>${data.strUNickname}</h2>
+                            <div class="rank">${rankName}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">${data.usn}</div>
+                            <div class="stat-label">🆔 User ID</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${data.i32Rank}</div>
+                            <div class="stat-label">⭐ Rank Level</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Exp)}</div>
+                            <div class="stat-label">🎯 Experience</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Kill)}</div>
+                            <div class="stat-label">💀 Total Kills</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Death)}</div>
+                            <div class="stat-label">⚰️ Total Deaths</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Assist)}</div>
+                            <div class="stat-label">🤝 Assists</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Win)}</div>
+                            <div class="stat-label">🏆 Wins</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Lose)}</div>
+                            <div class="stat-label">😞 Losses</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${formatNumber(data.i32Draw)}</div>
+                            <div class="stat-label">🤝 Draws</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${kdRatio}</div>
+                            <div class="stat-label">⚔️ K/D Ratio</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${winRatio}</div>
+                            <div class="stat-label">📈 Win Rate</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">${headshotRatio}</div>
+                            <div class="stat-label">🎯 Headshot Ratio</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('result').innerHTML = playerHtml;
+        }
+        
+        function displayError(message) {
+            const errorHtml = `
+                <div class="error-card">
+                    <h3>❌ CONNECTION ERROR</h3>
+                    <p>${message}</p>
+                    <p><em>Make sure you already run "npm start" or check your account credentials.</em></p>
+                </div>
+            `;
+            
+            document.getElementById('result').innerHTML = errorHtml;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    checkPlayerInfo();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
