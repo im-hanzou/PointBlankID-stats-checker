@@ -29,6 +29,7 @@ npm start
 - Access application at http://localhost:1337 or http://yourip:1337 (for default port)
 - And for custom port, eg: `8080`. Access application at http://localhost:8080 or http://yourip:8080
 - Make sure port 1337 or your custom port is open in firewall!
+- Enter your PointBlank UserID and Password
 # Notes
 - You can just run this application at your own risk, I'm not responsible for any loss or damage caused by this application.
 - This application is for educational purposes only.
